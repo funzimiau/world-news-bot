@@ -8,17 +8,17 @@ from aiogram.filters import Command
 
 logging.basicConfig(level=logging.INFO)
 
-TOKEN = "7680078478:AAEqviFBOwhaOAaY4Osbcof6li54l6fTIxg"
-NEWS_API_KEY = "8f6b05a1fc844e58a8e977cd1465f435"
+TOKEN = "7539268876:AAFSYhQ0H_htcFcVpDchv28fzSatSQCeunY"
+NEWS_API_KEY = "8f6b05a1fc844e58a8e977cd1465f435"  # Замените на ваш API-ключ
 
-
+# Создаём бота
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode="HTML"))
 
-
+# Создаём диспетчер и роутер
 dp = Dispatcher()
 router = Router()
 
-
+# Регистрируем команды
 
 @router.message(Command("start"))
 async def bot_start(message: Message):
@@ -45,7 +45,7 @@ async def cmd_news(message: Message):
 
     topic = args[1]
     try:
-        
+        # Запрос к API
         response = requests.get(
             f"https://newsapi.org/v2/everything?q={topic}&apiKey={NEWS_API_KEY}"
         )
@@ -72,11 +72,11 @@ async def cmd_news(message: Message):
 async def echo_message(message: Message):
     await message.answer("Я не понимаю тебя, напиши /help")
 
-
+# Регистрация роутера
 dp.include_router(router)
 
 async def main():
     await dp.start_polling(bot)
 
-if __name__ == "__main__":
+if name == "__main__":
     asyncio.run(main())
